@@ -203,11 +203,10 @@ export default function Home() {
         providerOptions: {},
         disableInjectedProvider: false
       });
-      connectWallet();
       getTotalTokensMinted();
       getBalanceOfCryptoDevTokens();
       getTokensToBeClaimed();
-      withdrawCoins();
+      getOwner();
     }
   }, [walletConnected]);
 
@@ -219,16 +218,7 @@ export default function Home() {
         </div>
       );
     }
-    if (walletConnected && isOwner) {
-      return (
-        <div>
-          <button className={styles.button1} onClick={withdrawCoins}>
-            Withdraw Coins
-          </button>
-        </div>
-      )
-    }
-    if (tokensToBeClaimed > 0) {
+    if (walletConnected && tokensToBeClaimed > 0) {
       return (
         <div>
           <div className={styles.description}>
@@ -239,6 +229,15 @@ export default function Home() {
           </button>
         </div>
       );
+    }
+    if (walletConnected && isOwner) {
+      return (
+        <div>
+          <button className={styles.button1} onClick={withdrawCoins}>
+            Withdraw Coins
+          </button>
+        </div>
+      )
     }
     return (
       <div style={{display: "flex-col"}}>
